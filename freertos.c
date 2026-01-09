@@ -24,9 +24,9 @@ __HIGH_CODE
 void task1_task(void *pvParameters)
 {
 	while (1) {
-		printf("task1 entry 1\n");
+		GPIO_InverseBits(LED_PIN);
 		vTaskDelay(configTICK_RATE_HZ / 4);
-		printf("task1 entry 2\n");
+		GPIO_InverseBits(LED_PIN);
 		vTaskDelay(configTICK_RATE_HZ / 4);
 	}
 }
