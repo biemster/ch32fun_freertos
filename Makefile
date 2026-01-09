@@ -3,7 +3,6 @@ all : flash
 TARGET:=freertos
 TARGET_MCU:=CH592
 TARGET_MCU_PACKAGE:=CH592F
-LINKER_SCRIPT:=freertos.ld
 
 EXTRA_CFLAGS += \
 	-I"./FreeRTOS" \
@@ -24,7 +23,6 @@ ADDITIONAL_C_FILES += \
 include ~/temp/CH570/ch32fun/ch32fun/ch32fun.mk
 
 FILES_TO_COMPILE += \
-	./startup_CH592.S \
 	./FreeRTOS/portable/GCC/RISC-V/portASM.S
 
 %.o: ./%.S
