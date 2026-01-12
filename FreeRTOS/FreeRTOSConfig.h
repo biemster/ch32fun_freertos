@@ -98,7 +98,7 @@
 #define configMAX_PRIORITIES                      ( 15 )
 #define configMINIMAL_STACK_SIZE                  ( ( unsigned short ) 128 ) /* Can be as low as 60 but some of the demo tasks that use this constant require it to be higher. */
 #define configISR_STACK_SIZE_WORDS                ( 512 )
-#define configTOTAL_HEAP_SIZE                     ( ( size_t ) ( 8 * 1024 ) )
+#define configTOTAL_HEAP_SIZE                     ( ( size_t ) ( 5 * 1024 ) )
 #define configSUPPORT_DYNAMIC_ALLOCATION          1
 #define configMAX_TASK_NAME_LEN                   ( 16 )
 #define configUSE_TRACE_FACILITY                  0
