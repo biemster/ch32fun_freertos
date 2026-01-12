@@ -18,23 +18,10 @@ ADDITIONAL_C_FILES += \
 	./FreeRTOS/tasks.c \
 	./FreeRTOS/timers.c \
 	./FreeRTOS/portable/GCC/RISC-V/port.c \
-	./FreeRTOS/portable/MemMang/heap_4.c
-
-include ~/temp/CH570/ch32fun/ch32fun/ch32fun.mk
-
-FILES_TO_COMPILE += \
+	./FreeRTOS/portable/MemMang/heap_4.c \
 	./FreeRTOS/portable/GCC/RISC-V/portASM.S
 
-%.o: ./%.S
-	${PREFIX}-gcc \
-	$(CFLAGS) \
-	-x assembler-with-cpp \
-	-MMD \
-	-MP \
-	-MF"$(@:%.o=%.d)" \
-	-MT"$(@)" \
-	-c \
-	-o "$@" "$<"
+include ~/temp/ch32fun/ch32fun/ch32fun.mk
 
 flash : cv_flash
 clean : cv_clean
