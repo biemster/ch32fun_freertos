@@ -104,8 +104,8 @@ __HIGH_CODE
 __INTERRUPT
 void GPIOA_IRQHandler(void) {
 	int status = R16_PA_INT_IF;
+	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 
-	portBASE_TYPE xHigherPriorityTaskWoken;
 	if(status & PA12) {
 		xSemaphoreGiveFromISR(xBinarySem, &xHigherPriorityTaskWoken);
 		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);

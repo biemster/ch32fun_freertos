@@ -47,6 +47,7 @@ interrupt stack after the scheduler has started. */
 	#define portISR_STACK_FILL_BYTE	0xee
 #else
 	/* __freertos_irq_stack_top define by .ld file */
+	#error "need to define configISR_STACK_SIZE_WORDS, linker script does not have __freertos_irq_stack_top"
 	extern const uint32_t __freertos_irq_stack_top[];
 	const StackType_t xISRStackTop = ( StackType_t ) __freertos_irq_stack_top;
 #endif
