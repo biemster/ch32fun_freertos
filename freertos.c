@@ -31,8 +31,6 @@ void task1_task(void *pvParameters) {
 	while (1) {
 		GPIO_InverseBits(LED_PIN);
 		vTaskDelay(configTICK_RATE_HZ / 4);
-		GPIO_InverseBits(LED_PIN);
-		vTaskDelay(configTICK_RATE_HZ / 4);
 	}
 }
 
