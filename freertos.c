@@ -5,7 +5,14 @@
 #include "semphr.h"
 #include "stdarg.h"
 
-#define LED_PIN             PA8
+#ifdef CH570_CH572
+#define LED_PIN   PA9
+#define TASK3_PIN PA4
+#else
+#define LED_PIN   PA8
+#define TASK3_PIN PA12
+#endif
+
 #define TASK1_TASK_PRIO     5
 #define TASK1_STK_SIZE      256
 #define TASK2_TASK_PRIO     5
@@ -43,12 +50,12 @@ __HIGH_CODE
 void task3_task(void *pvParameters) {
 	xBinarySem = xSemaphoreCreateBinary();
 	if(xBinarySem != NULL) {
-		funPinMode(PA12, GPIO_CFGLR_IN_PU);
-		R16_PB_INT_MODE |= PA12; // edge mode, should go to ch32fun.h
-		funDigitalWrite(PA12, FUN_LOW); // falling edge
+		funPinMode(TASK3_PIN, GPIO_CFGLR_IN_PU);
+		R16_PA_INT_MODE |= TASK3_PIN; // edge mode, should go to ch32fun.h
+		funDigitalWrite(TASK3_PIN, FUN_LOW); // falling edge
 		NVIC_EnableIRQ(GPIOA_IRQn);
-		R16_PA_INT_IF = (uint16_t)PA12;
-		R16_PA_INT_EN |= PA12;
+		R16_PA_INT_IF = (uint16_t)TASK3_PIN;
+		R16_PA_INT_EN |= TASK3_PIN;
 
 		while (1) {
 			if(xSemaphoreTake(xBinarySem, portMAX_DELAY) == pdTRUE) {
@@ -106,7 +113,7 @@ void GPIOA_IRQHandler(void) {
 	int status = R16_PA_INT_IF;
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 
-	if(status & PA12) {
+	if(status & TASK3_PIN) {
 		xSemaphoreGiveFromISR(xBinarySem, &xHigherPriorityTaskWoken);
 		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 	}
