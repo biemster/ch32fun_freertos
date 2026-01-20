@@ -83,13 +83,9 @@ extern void SW_Handler(void);
 extern void SysTick_Handler( void );
 
 uint32_t SysTick_Config(uint64_t ticks) {
-	if((ticks - 1) > SYSTICK_LOAD_RELOAD_MSK)
-		return (1); /* Reload value impossible */
-
 	SysTick->CMP = ticks - 1; /* set reload register */
 	NVIC_EnableIRQ(SysTick_IRQn);
-	SysTick->CTLR = SYSTICK_CTLR_INIT |
-					SYSTICK_CTLR_STRE |
+	SysTick->CTLR = SYSTICK_CTLR_STRE |
 					SYSTICK_CTLR_STCLK |
 					SYSTICK_CTLR_STIE |
 					SYSTICK_CTLR_STE; /* Enable SysTick IRQ and SysTick Timer */

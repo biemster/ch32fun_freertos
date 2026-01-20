@@ -26,6 +26,14 @@ extern "C" {
  *-----------------------------------------------------------
  */
 
+#ifndef __INTERRUPT
+#define __INTERRUPT INTERRUPT_DECORATOR
+#endif
+
+#ifndef __HIGH_CODE
+#define __HIGH_CODE
+#endif
+
 /* Type definitions. */
 #define portSTACK_TYPE	uint32_t
 #define portBASE_TYPE	int32_t

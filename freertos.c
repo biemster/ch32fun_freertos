@@ -26,6 +26,7 @@ TaskHandle_t Task3Task_Handler;
 SemaphoreHandle_t xBinarySem;
 
 
+#ifdef CH5xx
 __HIGH_CODE
 void task1_task(void *pvParameters) {
 	while (1) {
@@ -33,6 +34,7 @@ void task1_task(void *pvParameters) {
 		vTaskDelay(configTICK_RATE_HZ / 4);
 	}
 }
+#endif
 
 __HIGH_CODE
 void task2_task(void *pvParameters) {
@@ -44,6 +46,7 @@ void task2_task(void *pvParameters) {
 	}
 }
 
+#ifdef CH5xx
 __HIGH_CODE
 void task3_task(void *pvParameters) {
 	xBinarySem = xSemaphoreCreateBinary();
@@ -68,6 +71,7 @@ void task3_task(void *pvParameters) {
 		printf("task3 sem init failed\n");
 	}
 }
+#endif
 
 int main(void) {
 	SystemInit();
@@ -77,12 +81,14 @@ int main(void) {
 
 	printf("start.\n");
 
+#ifdef CH5xx
 	xTaskCreate((TaskFunction_t)task1_task,
 				(const char *)"task1",
 				(uint16_t)TASK1_STK_SIZE,
 				(void *)NULL,
 				(UBaseType_t)TASK1_TASK_PRIO,
 				(TaskHandle_t *)&Task1Task_Handler);
+#endif
 
 	xTaskCreate((TaskFunction_t)task2_task,
 				(const char *)"task2",
@@ -91,12 +97,14 @@ int main(void) {
 				(UBaseType_t)TASK2_TASK_PRIO,
 				(TaskHandle_t *)&Task2Task_Handler);
 
+#ifdef CH5xx
 	xTaskCreate((TaskFunction_t)task3_task,
 				(const char *)"task3",
 				(uint16_t)TASK3_STK_SIZE,
 				(void *)NULL,
 				(UBaseType_t)TASK3_TASK_PRIO,
 				(TaskHandle_t *)&Task3Task_Handler);
+#endif
 
 	vTaskStartScheduler();
 
@@ -105,6 +113,7 @@ int main(void) {
 	}
 }
 
+#ifdef CH5xx
 __HIGH_CODE
 __INTERRUPT
 void GPIOA_IRQHandler(void) {
@@ -118,3 +127,4 @@ void GPIOA_IRQHandler(void) {
 
 	R16_PA_INT_IF = status; // acknowledge
 }
+#endif
